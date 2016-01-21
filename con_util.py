@@ -73,7 +73,7 @@ def construct_dataset(paths):
             party = f[19:20]
             label = party + vote
             if label not in classes:
-                continue;
+                continue
             with open(os.path.join(p,f),'r') as doc:
                 content = doc.read()
                 for replace in REPLACEMENTS:
@@ -103,7 +103,7 @@ def construct_dataset(paths):
                 for idx,line in enumerate(lines):
                     lines[idx] = lines[idx] + ' ' + END_OF_SENTENCE
 
-                    words = line.split();
+                    words = line.split()
                     for word in words:
                         vocab.add(word)
                         vocab_count[word] += 1
@@ -140,7 +140,7 @@ def jk_pos_tag_filter(dataset):
 
     jk_trigram_filter_ = [['NN','NN','NN'],['JJ','JJ','NN'],['JJ','NN','NN'],['NN','JJ','NN'],['NN','IN','NN'],['NN','CC','NN']]
     jk_bigram_filter = [['NN','NN'],['JJ','NN']]
-    #nltk.download('maxent_treebank_pos_tagger');
+    #nltk.download('maxent_treebank_pos_tagger')
 
     jk = dict()
     for c in classes:
