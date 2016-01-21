@@ -26,7 +26,29 @@ NUMBER = "<number>"
 
 
 classes = ['DY','DN','RY','RN']
-
+REPLACEMENTS = (
+    ('; center ', '; '),
+    (' /center ', ' '),
+    (' em ', ' '),
+    (' /em ', ' '),
+    (' pre ', ' '),
+    (' /pre ', ' '),
+    (' & lt ;', ''),
+    (' & gt ;', ''),
+    (' p ; ', ' '),
+    (' & amp ; ', ' '),
+    (' p nbsp ; ', ' '),
+    (' nbsp ;', ''),
+    (' p ; ', ' '),
+    (' p lt ;', ''),
+    (' p gt ;', ''),
+    (' b ', ' '),
+    (' p ', ' '),
+    (" n't", "n't"),
+    (" 's", "'s"),
+    (" h. con .  res. ", " h.con.res. "),
+    ('.these ', '. these '),
+)
 
 vocab_count = defaultdict(float)
 
@@ -54,32 +76,8 @@ def construct_dataset(paths):
                 continue;
             with open(os.path.join(p,f),'r') as doc:
                 content = doc.read()
-
-                content = content.replace('; center ', '; ')
-                content = content.replace(' /center ', ' ')
-                content = content.replace(' em ', ' ')
-                content = content.replace(' /em ', ' ')
-                content = content.replace(' pre ', ' ')
-                content = content.replace(' /pre ', ' ')
-
-                content = content.replace(' & lt ;', '')
-                content = content.replace(' & gt ;', '')
-                content = content.replace(' p ; ', ' ')
-                content = content.replace(' & amp ; ', ' ')
-
-                content = content.replace(' p nbsp ; ', ' ') 
-                content = content.replace(' nbsp ;', '') 
-                content = content.replace(' p ; ', ' ')
-                content = content.replace(' p lt ;', '')
-                content = content.replace(' p gt ;', '')
-
-                content = content.replace(' b ', ' ')
-                content = content.replace(' p ', ' ')
-
-                content = content.replace(" n't", "n't")
-                content = content.replace(" 's", "'s")   
-                content = content.replace(" h. con .  res. ", " h.con.res. ")  
-                content = content.replace('.these ', '. these ')
+                for replace in REPLACEMENTS:
+                    content = content.replace(replace[0], replace[1])
 
                 content = re.sub(r'[a-z]\.[a-z] \.  ',lambda pat: pat.group(0).replace(' ','') + ' ',content)
 
