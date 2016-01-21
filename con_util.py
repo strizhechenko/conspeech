@@ -3,6 +3,8 @@ import operator
 import os
 import random
 from collections import defaultdict
+from scipy.stats import futil
+from sklearn import preprocessing
 import numpy as np
 from sklearn.feature_extraction import DictVectorizer
 import re
